@@ -8,7 +8,7 @@ import json
 # Import functions from pipeline.py
 from pipeline import preprocess_data, train_and_evaluate_models
 
-st.title("📂 AutoML Pipeline - Upload, Preprocess & Train Models")
+st.title(" AutoML Pipeline - Upload, Preprocess & Train Models")
 
 # Initialize session state
 if 'session_id' not in st.session_state:
@@ -39,8 +39,8 @@ if uploaded_file is not None:
         df_pickle_path = os.path.join(session_dir, "dataframe.pkl")
         df.to_pickle(df_pickle_path)
 
-        st.success("✅ File uploaded successfully!")
-        st.write(f"📁 Session ID: {st.session_state.session_id}")
+        st.success(" File uploaded successfully!")
+        st.write(f" Session ID: {st.session_state.session_id}")
         st.write("### Preview of Dataset:")
         st.dataframe(df.head())
 
@@ -87,9 +87,9 @@ if uploaded_file is not None:
                         st.session_state.y_test = y_test
                         st.session_state.encoders = encoders
                         st.session_state.scaler = scaler
-                        st.success("✅ Preprocessing complete!")
+                        st.success(" Preprocessing complete!")
                     except Exception as e:
-                        st.error(f"❌ Preprocessing failed: {str(e)}")
+                        st.error(f" Preprocessing failed: {str(e)}")
 
                 # Show report as a table
                 if 'X_train' in st.session_state:
@@ -111,13 +111,13 @@ if uploaded_file is not None:
                             )
                             st.session_state.models = models
                             st.session_state.results = results
-                            st.success("✅ Model training complete!")
+                            st.success(" Model training complete!")
                         except Exception as e:
-                            st.error(f"❌ Training failed: {str(e)}")
+                            st.error(f" Training failed: {str(e)}")
 
                 # Show results
                 if 'results' in st.session_state:
-                    st.write("### 📊 Model Evaluation Results")
+                    st.write("###  Model Evaluation Results")
                     results_df = pd.DataFrame(st.session_state.results).T
                     if task_type.lower() == "classification":
                         results_df = results_df.sort_values(by='Accuracy', ascending=False)
@@ -154,7 +154,7 @@ if uploaded_file is not None:
                                         mime="application/octet-stream"
                                     )
 
-                                st.success(f"✅ Ready to download: {selected_model}.joblib")
+                                st.success(f" Ready to download: {selected_model}.joblib")
                                 st.info("""
                                 **How to Use the Model:**
                                 ```python
@@ -189,11 +189,11 @@ if uploaded_file is not None:
                                 ```
                                 """)
                             except Exception as e:
-                                st.error(f"❌ Export failed: {str(e)}")
+                                st.error(f" Export failed: {str(e)}")
 
         else:
             if y_col in X_cols:
-                st.warning("⚠️ Target column cannot be in features. Please adjust selections.")
+                st.warning(" Target column cannot be in features. Please adjust selections.")
 
     except Exception as e:
-        st.error(f"❌ File upload failed: {str(e)}")
+        st.error(f" File upload failed: {str(e)}")
